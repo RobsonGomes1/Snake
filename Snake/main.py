@@ -3,12 +3,22 @@ from pygame.locals import *
 import random 
 
 def on_grid_random():
-    x = random.randint(0,590)
-    y = random.randint(0,590)
+    x = random.randint(100,300)
+    y = random.randint(100,300)
     return (x//10*10, y//10*10)
 
 def collision(c1, c2):
     return (c1[0] == c2[0]) and (c1[1] == c2[1])
+
+def cobra_colisao(x1,x2):
+    return(x1[0]== x2[0]) and (x1[1]==x2[1])
+
+
+def newColorSnake():
+    x = random.randint (0,255)
+    y = random.randint (0,255)
+    z = random.randint (0,255)
+    return (x,y,z)   
 
 cima = 0
 direita = 1
@@ -23,11 +33,11 @@ pygame.display.set_caption('Snake')
 
 cobra = [(200,200),(210,200),(220,200)]
 cobra_skin = pygame.Surface((10,10))
-cobra_skin.fill((240,128,128)) #Cor rgb
+cobra_skin.fill(newColorSnake()) #Cor rgb
 
 
 maca = pygame.Surface((10,10))
-maca.fill((255,0,0))
+maca.fill(newColorSnake())
 maca_posicao = on_grid_random()
 
 direcao = esquerda
@@ -63,6 +73,10 @@ while True:
     if collision(cobra[0], maca_posicao):
         maca_posicao = on_grid_random()
         cobra.append((0,0))
+
+   
+        
+           
 
     for i in range(len(cobra) -1, 0, -1):
         cobra[i] = (cobra[i-1][0], cobra[i-1][1])
